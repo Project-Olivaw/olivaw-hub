@@ -67,7 +67,7 @@ fn cast(o: (f64, f64), theta: f64, walls: &[Wall], max: f64) -> Option<f64> {
         let (fx, fy) = (w.a.0 - o.0, w.a.1 - o.1);
         let t = (fx * ey - fy * ex) / denom;
         let u = (fx * dy - fy * dx) / denom;
-        if t > 0.0 && (0.0..=1.0).contains(&u) && t < best {
+        if t > 1e-9 && (-1e-6..=1.0 + 1e-6).contains(&u) && t < best {
             best = t;
         }
     }
