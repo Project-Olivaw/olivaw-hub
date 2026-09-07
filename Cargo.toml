@@ -19,6 +19,7 @@ rerun = ["dep:rerun", "olivaw-slam/viz"]
 [dependencies]
 olivaw-proto = { path = "../olivaw-fw/olivaw-proto", features = ["std"] }
 olivaw-slam = { path = "../olivaw-slam", features = ["serialize"] }
+olivaw-lidar = { path = "../olivaw-lidar" }
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "signal", "fs", "io-util"] }
 axum = { version = "0.8", features = ["ws", "json"] }
 tower-http = { version = "0.6", features = ["cors", "fs", "trace"] }

@@ -22,6 +22,7 @@ cargo run --release                               # real car: broker on :1883, A
 cargo run --release -- --record run1.olivawrec    # keep the session
 cargo run --release -- --replay run1.olivawrec    # play it back (--replay-speed 0 = max speed)
 cargo run --release --features rerun -- --simulate --rerun
+cargo run --release -- --lidar                    # RPLIDAR on this machine's USB, published as car "mac-lidar"
 cargo run --release -- --log-only                 # just print decoded MQTT events
 cargo run --release --example fake_car -- run1.olivawrec   # publish a recording over MQTT as if it were the car
 ```

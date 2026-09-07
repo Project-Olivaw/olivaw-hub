@@ -35,6 +35,13 @@ struct Args {
     /// Feed a synthetic car driving around a room (no hardware needed).
     #[arg(long)]
     simulate: bool,
+    /// Read an RPLIDAR plugged into this machine (auto-detects the port when no value is given)
+    /// and publish it as car `--lidar-id`.
+    #[arg(long, value_name = "PORT", num_args = 0..=1, default_missing_value = "")]
+    lidar: Option<String>,
+    /// Car id used for `--lidar`.
+    #[arg(long, default_value = "mac-lidar")]
+    lidar_id: String,
     /// Replay a `.olivawrec` session instead of listening to MQTT.
     #[arg(long, value_name = "FILE")]
     replay: Option<PathBuf>,
@@ -83,6 +90,11 @@ async fn main() -> anyhow::Result<()> {
     }
     if args.simulate {
         sim::spawn(cfg.sim.clone(), events_tx.clone());
+    }
+    if let Some(port) = &args.lidar {
+        let port = (!port.is_empty()).then(|| port.clone());
+        ingest::serial::spawn(port, args.lidar_id.clone(), events_tx.clone())
+            .context("opening the lidar")?;
     }
 
     if args.log_only {

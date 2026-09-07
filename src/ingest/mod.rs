@@ -1,6 +1,7 @@
 //! Events entering the hub, whatever their source (MQTT, replay, simulator).
 
 pub mod mqtt;
+pub mod serial;
 
 use std::time::{SystemTime, UNIX_EPOCH};
 
